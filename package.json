@@ -1,10 +1,18 @@
 {
   "name": "nfc-card",
   "version": "1.0.0",
-  "description": "<p align=\"center\">\r   <a href=\"https://github.com/homebridge/homebridge\"><img src=\"https://raw.githubusercontent.com/homebridge/branding/master/logos/homebridge-color-round-stylized.png\" height=\"140\"></a>\r </p>",
+  "description": "Homebridge plugin",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "homebridge": ">=0.4.50",
+    "node": ">=12.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inventor2007/nfc-card.git"
   },
   "author": "",
   "license": "ISC"
