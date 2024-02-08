@@ -12,6 +12,7 @@ class ExampleNFCAccessAccessory {
     this.api = api;
 
     this.Service = this.api.hap.Service;
+    console.log(this.Service);
     this.Characteristic = this.api.hap.Characteristic;
 
     // extract name from config
