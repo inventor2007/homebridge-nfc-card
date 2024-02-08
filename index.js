@@ -19,7 +19,9 @@ class ExampleNFCAccessAccessory {
     this.name = config.name;
 
     // create a new Nfc Access service
-    this.service = new this.Service(this.Service.NFCAccess);
+    this.service = new this.Service.NFCAccess(this.name);
+
+    this.nfcAccessService.setCharacteristic(Characteristic.NFCAccessSupportedConfiguration, 1);
 
     // create handlers for required characteristics
     this.service.getCharacteristic(this.Characteristic.ConfigurationState)
