@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-nfc-card",
+  "name": "homebridge-http-nfc-lock",
   "version": "0.0.1",
   "description": "Homebridge plugin",
   "main": "index.js",
