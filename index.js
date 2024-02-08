@@ -22,21 +22,14 @@ class ExampleNFCAccessAccessory {
 
     // create handlers for required characteristics
     this.service.getCharacteristic(this.Characteristic.ConfigurationState)
-      .onGet(this.handleConfigurationStateGet.bind(this));
+      .onGet(console.log(this));
+
+    this.service.getCharacteristic(this.Characteristic.NFCAccessControlPoint)
+      .onGet(console.log(this))
+      .onSet(console.log(this));
+
+    this.service.getCharacteristic(this.Characteristic.NFCAccessSupportedConfiguration)
+      .onGet(console.log(this));
 
   }
-
-  /**
-   * Handle requests to get the current value of the "Configuration State" characteristic
-   */
-  handleConfigurationStateGet() {
-    this.log.debug('Triggered GET ConfigurationState');
-
-    // set this to a valid value for ConfigurationState
-    const currentValue = 1;
-
-    return currentValue;
-  }
-
-
 }
