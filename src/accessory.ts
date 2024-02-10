@@ -56,11 +56,11 @@ class NfcCard implements AccessoryPlugin {
     this.LockService = new hap.Service.LockMechanism("Computer Lock")
     // create handlers for required characteristics
     this.LockService.getCharacteristic(hap.Characteristic.LockCurrentState)
-    .onGet(this.handleLockCurrentStateGet.bind(this));
+      .onGet(this.handleLockCurrentStateGet.bind(this));
 
-  this.LockService.getCharacteristic(hap.Characteristic.LockTargetState)
-    .onGet(this.handleLockTargetStateGet.bind(this))
-    .onSet(this.handleLockTargetStateSet.bind(this));
+    this.LockService.getCharacteristic(hap.Characteristic.LockTargetState)
+      .onGet(this.handleLockTargetStateGet.bind(this))
+      .onSet(this.handleLockTargetStateSet.bind(this));
 
     this.NfcAccessService = new hap.Service.NFCAccess(this.name)
     this.NfcAccessService.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
@@ -139,23 +139,23 @@ class NfcCard implements AccessoryPlugin {
 
     this.NfcAccessService.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
 
+    // this.NfcAccessService
+    //     .getCharacteristic(hap.Characteristic.ConfigurationState)
+    //     .on(CharacteristicEventTypes.GET, callback => {
+    //       console.log("Queried config state: ");
+    //       callback(undefined, 2);
+    //     });
     this.NfcAccessService
-        .getCharacteristic(hap.Characteristic.ConfigurationState)
-        .on(CharacteristicEventTypes.GET, callback => {
-          console.log("Queried config state: ");
-          callback(undefined, 2);
-        });
-    this.NfcAccessService
-        .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
-        .on(CharacteristicEventTypes.SET, (value, callback) => {
-          console.log("Control Point Write: " + value);
-          callback(undefined, "");
-        });
+      .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
+      .on(CharacteristicEventTypes.SET, (value, callback) => {
+        console.log("Control Point Write: " + value);
+        callback(undefined, "");
+      });
 
     // this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche")
 
-    // this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-    //   .onGet(this.handleConfigurationStateGet.bind(this))
+    this.NfcAccessService.getCharacteristic(hap.Characteristic.ConfigurationState)
+      .onGet(this.handleConfigurationStateGet.bind(this))
 
     // this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
     //   .on(CharacteristicEventTypes.SET, (value, callback) => {

@@ -79,12 +79,12 @@ class NfcCard {
             .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)
             .setCharacteristic(hap.Characteristic.FirmwareRevision, this.firmware);
         this.NfcAccessService.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
-        this.NfcAccessService
-            .getCharacteristic(hap.Characteristic.ConfigurationState)
-            .on("get" /* CharacteristicEventTypes.GET */, callback => {
-            console.log("Queried config state: ");
-            callback(undefined, 2);
-        });
+        // this.NfcAccessService
+        //     .getCharacteristic(hap.Characteristic.ConfigurationState)
+        //     .on(CharacteristicEventTypes.GET, callback => {
+        //       console.log("Queried config state: ");
+        //       callback(undefined, 2);
+        //     });
         this.NfcAccessService
             .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
             .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
@@ -92,8 +92,8 @@ class NfcCard {
             callback(undefined, "");
         });
         // this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche")
-        // this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-        //   .onGet(this.handleConfigurationStateGet.bind(this))
+        this.NfcAccessService.getCharacteristic(hap.Characteristic.ConfigurationState)
+            .onGet(this.handleConfigurationStateGet.bind(this));
         // this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
         //   .on(CharacteristicEventTypes.SET, (value, callback) => {
         //     console.log("Control Point Write: " + value);
