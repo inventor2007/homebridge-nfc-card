@@ -1,23 +1,38 @@
 {
-  "name": "homebridge-http-nfc-lock",
-  "version": "0.0.1",
-  "description": "Homebridge plugin",
-  "main": "index.js",
-  "engines": {
-    "homebridge": ">=0.4.50",
-    "node": ">=12.13.0"
-  },
+  "name": "homebridge-accessory-example",
+  "version": "1.0.0",
+  "description": "An example accessory plugin for homebridge written in Typescript",
+  "main": "dist/accessory.js",
   "scripts": {
+    "clean": "rimraf ./dist",
+    "build": "rimraf ./dist && tsc",
+    "prepublishOnly": "npm run build",
+    "postpublish": "npm run clean",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/inventor2007/nfc-card.git"
+  "author": "Andreas Bauer <mail@anderl-bauer.de>",
+  "engines": {
+    "homebridge": ">=1.0.0"
   },
   "keywords": [
     "homebridge-plugin"
   ],
-  "author": "new_inventor",
   "license": "ISC",
-  "homepage": "https://github.com/inventor2007/nfc-card#readme"
+  "files": [
+    "LICENSE",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/inventor2007/nfc-card.git"
+  },
+  "bugs": {
+    "url": "https://github.com/inventor2007/nfc-card/issues"
+  },
+  "devDependencies": {
+    "@types/node": "16.11.7",
+    "typescript": "^5.0.4",
+    "rimraf": "^5.0.0",
+    "homebridge": "^1.6.1"
+  }
 }
