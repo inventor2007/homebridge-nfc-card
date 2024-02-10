@@ -70,37 +70,37 @@ class NfcCard implements AccessoryPlugin {
     log.info("Switch finished initializing!");
   }
 
-    /**
-   * Handle requests to get the current value of the "Lock Current State" characteristic
+  /**
+  * Handle requests to get the current value of the "Lock Current State" characteristic
+  */
+  handleLockCurrentStateGet() {
+    this.log.debug('Triggered GET LockCurrentState');
+
+    // set this to a valid value for LockCurrentState
+    const currentValue = hap.Characteristic.LockCurrentState.UNSECURED;
+
+    return currentValue;
+  }
+
+
+  /**
+   * Handle requests to get the current value of the "Lock Target State" characteristic
    */
-    handleLockCurrentStateGet() {
-      this.log.debug('Triggered GET LockCurrentState');
-  
-      // set this to a valid value for LockCurrentState
-      const currentValue = hap.Characteristic.LockCurrentState.UNSECURED;
-  
-      return currentValue;
-    }
-  
-  
-    /**
-     * Handle requests to get the current value of the "Lock Target State" characteristic
-     */
-    handleLockTargetStateGet() {
-      this.log.debug('Triggered GET LockTargetState');
-  
-      // set this to a valid value for LockTargetState
-      const currentValue = hap.Characteristic.LockTargetState.UNSECURED;
-  
-      return currentValue;
-    }
-  
-    /**
-     * Handle requests to set the "Lock Target State" characteristic
-     */
-    handleLockTargetStateSet(value: number) {
-      this.log.debug('Triggered SET LockTargetState:' + String(value));
-    }
+  handleLockTargetStateGet() {
+    this.log.debug('Triggered GET LockTargetState');
+
+    // set this to a valid value for LockTargetState
+    const currentValue = hap.Characteristic.LockTargetState.UNSECURED;
+
+    return currentValue;
+  }
+
+  /**
+   * Handle requests to set the "Lock Target State" characteristic
+   */
+  handleLockTargetStateSet(value: any) {
+    this.log.debug('Triggered SET LockTargetState:' + value);
+  }
 
   /**
    * Handle requests to get the current value of the "Configuration State" characteristic
