@@ -63,6 +63,6 @@ class ExampleSwitch {
 }
 module.exports = (api) => {
     hap = api.hap;
-    api.registerAccessory("ExampleSwitch", ExampleSwitch);
+    api.registerAccessory("homebridge-nfc-card", ExampleSwitch);
 };
 //# sourceMappingURL=accessory.js.map

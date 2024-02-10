@@ -40,7 +40,7 @@ let hap: HAP;
  */
 export = (api: API) => {
   hap = api.hap;
-  api.registerAccessory("ExampleSwitch", ExampleSwitch);
+  api.registerAccessory("homebridge-nfc-card", ExampleSwitch);
 };
 
 class ExampleSwitch implements AccessoryPlugin {
