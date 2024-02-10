@@ -68,9 +68,11 @@ class NfcCard {
      * It should return all services which should be added to the accessory.
      */
     getServices() {
-        this.infoLockService = new hap.Service.AccessoryInformation()
-            .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
-            .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+        this.infoLockService
+            .setCharacteristic(hap.Characteristic.Manufacturer, "new_inventor")
+            .setCharacteristic(hap.Characteristic.Model, "ComputerCard")
+            .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)
+            .setCharacteristic(hap.Characteristic.FirmwareRevision, this.firmware);
         this.infoNfcAccessService
             .setCharacteristic(hap.Characteristic.Manufacturer, "new_inventor")
             .setCharacteristic(hap.Characteristic.Model, "ComputerCard")
@@ -97,7 +99,7 @@ class NfcCard {
         //     console.log("Control Point Write: " + value);
         //     callback(undefined, "");
         //   });
-        return [this.informationService, this.service];
+        return [this.infoLockService, this.LockService, this.infoNfcAccessService, this.NfcAccessService];
     }
 }
 module.exports = (api) => {
