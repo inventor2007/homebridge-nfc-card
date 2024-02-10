@@ -1,46 +1,31 @@
 "use strict";
-/*
- * IMPORTANT NOTICE
- *
- * One thing you need to take care of is, that you never ever ever import anything directly from the "homebridge" module (or the "hap-nodejs" module).
- * The above import block may seem like, that we do exactly that, but actually those imports are only used for types and interfaces
- * and will disappear once the code is compiled to Javascript.
- * In fact you can check that by running `npm run build` and opening the compiled Javascript file in the `dist` folder.
- * You will notice that the file does not contain a `... = require("homebridge");` statement anywhere in the code.
- *
- * The contents of the above import statement MUST ONLY be used for type annotation or accessing things like CONST ENUMS,
- * which is a special case as they get replaced by the actual value and do not remain as a reference in the compiled code.
- * Meaning normal enums are bad, const enums can be used.
- *
- * You MUST NOT import anything else which remains as a reference in the code, as this will result in
- * a `... = require("homebridge");` to be compiled into the final Javascript code.
- * This typically leads to unexpected behavior at runtime, as in many cases it won't be able to find the module
- * or will import another instance of homebridge causing collisions.
- *
- * To mitigate this the {@link API | Homebridge API} exposes the whole suite of HAP-NodeJS inside the `hap` property
- * of the api object, which can be acquired for example in the initializer function. This reference can be stored
- * like this for example and used to access all exported variables and classes from HAP-NodeJS.
- */
 let hap;
-class ExampleSwitch {
+class NfcCard {
     constructor(log, config, api) {
-        this.switchOn = false;
         this.log = log;
         this.name = config.name;
-        this.switchService = new hap.Service.Switch(this.name);
-        this.switchService.getCharacteristic(hap.Characteristic.On)
-            .on("get" /* CharacteristicEventTypes.GET */, (callback) => {
-            log.info("Current state of the switch was returned: " + (this.switchOn ? "ON" : "OFF"));
-            callback(undefined, this.switchOn);
-        })
-            .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
-            this.switchOn = value;
-            log.info("Switch state was set to: " + (this.switchOn ? "ON" : "OFF"));
-            callback();
-        });
+        this.api = api;
+        this.name = config.name;
+        this.service = new hap.Service.NFCAccess(this.name);
+        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, '08:59:6E:2B');
         this.informationService = new hap.Service.AccessoryInformation()
             .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
             .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
+            .on("get" /* CharacteristicEventTypes.GET */, (callback) => {
+            log.info("Current state of the switch was returned: ");
+            callback(undefined, "this.switchOn");
+        });
+        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
+            .on("get" /* CharacteristicEventTypes.GET */, callback => {
+            console.log("Queried config state: ");
+            callback(undefined, 0);
+        });
+        this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
+            .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
+            console.log("Control Point Write: " + value);
+            callback(undefined, "");
+        });
         log.info("Switch finished initializing!");
     }
     /*
@@ -57,12 +42,12 @@ class ExampleSwitch {
     getServices() {
         return [
             this.informationService,
-            this.switchService,
+            this.service,
         ];
     }
 }
 module.exports = (api) => {
     hap = api.hap;
-    api.registerAccessory("homebridge-nfc-card", ExampleSwitch);
+    api.registerAccessory("homebridge-nfc-card", NfcCard);
 };
 //# sourceMappingURL=accessory.js.map
