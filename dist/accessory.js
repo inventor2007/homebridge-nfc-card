@@ -7,7 +7,7 @@ class NfcCard {
         this.api = api;
         this.name = config.name;
         this.service = new hap.Service.NFCAccess(this.name);
-        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, '08:59:6E:2B');
+        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, 2);
         this.informationService = new hap.Service.AccessoryInformation()
             .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
             .setCharacteristic(hap.Characteristic.Model, "Custom Model");
