@@ -12,6 +12,7 @@ class NfcCard {
         this.model = config.model || "homebridge-nfc-card";
         this.firmware = config.firmware || "0.0.1";
         this.service = new hap.Service.NFCAccess(this.name);
+        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
         log.info("Switch finished initializing!");
     }
     /**
@@ -45,7 +46,7 @@ class NfcCard {
             .getCharacteristic(hap.Characteristic.ConfigurationState)
             .on("get" /* CharacteristicEventTypes.GET */, callback => {
             console.log("Queried config state: ");
-            callback(undefined, 0);
+            callback(undefined, 2);
         });
         this.service
             .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)

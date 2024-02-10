@@ -55,6 +55,7 @@ class NfcCard implements AccessoryPlugin {
     this.firmware = config.firmware || "0.0.1"
 
     this.service = new hap.Service.NFCAccess(this.name)
+    this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
 
     log.info("Switch finished initializing!");
   }
@@ -96,7 +97,7 @@ class NfcCard implements AccessoryPlugin {
         .getCharacteristic(hap.Characteristic.ConfigurationState)
         .on(CharacteristicEventTypes.GET, callback => {
           console.log("Queried config state: ");
-          callback(undefined, 0);
+          callback(undefined, 2);
         });
     this.service
         .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
