@@ -12,7 +12,8 @@ import {
   Service
 } from "homebridge";
 
-let hap: HAP;
+let hap: HAP
+
 
 /*
  * Initializer function called when the plugin is loaded.
@@ -89,16 +90,31 @@ class NfcCard implements AccessoryPlugin {
       .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)
       .setCharacteristic(hap.Characteristic.FirmwareRevision, this.firmware)
 
-    this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche")
+    this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
 
-    this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-      .onGet(this.handleConfigurationStateGet.bind(this))
+    this.service
+        .getCharacteristic(hap.Characteristic.ConfigurationState)
+        .on(CharacteristicEventTypes.GET, callback => {
+          console.log("Queried config state: ");
+          callback(undefined, 0);
+        });
+    this.service
+        .getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
+        .on(CharacteristicEventTypes.SET, (value, callback) => {
+          console.log("Control Point Write: " + value);
+          callback(undefined, "");
+        });
 
-    this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
-      .on(CharacteristicEventTypes.SET, (value, callback) => {
-        console.log("Control Point Write: " + value);
-        callback(undefined, "");
-      });
+    // this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche")
+
+    // this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
+    //   .onGet(this.handleConfigurationStateGet.bind(this))
+
+    // this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
+    //   .on(CharacteristicEventTypes.SET, (value, callback) => {
+    //     console.log("Control Point Write: " + value);
+    //     callback(undefined, "");
+    //   });
 
     return [this.informationService, this.service ]
   }
