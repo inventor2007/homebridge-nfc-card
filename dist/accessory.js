@@ -12,21 +12,27 @@ class NfcCard {
             .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
             .setCharacteristic(hap.Characteristic.Model, "Custom Model");
         this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-            .on("get" /* CharacteristicEventTypes.GET */, (callback) => {
-            log.info("Current state of the switch was returned: ");
-            callback(undefined, "this.switchOn");
-        });
-        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
             .on("get" /* CharacteristicEventTypes.GET */, callback => {
             console.log("Queried config state: ");
             callback(undefined, 0);
         });
+        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
+            .onGet(this.handleConfigurationStateGet.bind(this));
         this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
             .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
             console.log("Control Point Write: " + value);
             callback(undefined, "");
         });
         log.info("Switch finished initializing!");
+    }
+    /**
+     * Handle requests to get the current value of the "Configuration State" characteristic
+     */
+    handleConfigurationStateGet() {
+        this.log.debug('Triggered GET ConfigurationState');
+        // set this to a valid value for ConfigurationState
+        const currentValue = 1;
+        return currentValue;
     }
     /*
      * This method is optional to implement. It is called when HomeKit ask to identify the accessory.
