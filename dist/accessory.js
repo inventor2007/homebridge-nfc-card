@@ -6,7 +6,8 @@ class NfcCard {
         this.name = config.name;
         this.api = api;
         this.name = config.name;
-        this.informationService = new hap.Service.AccessoryInformation();
+        this.infoLockService = new hap.Service.AccessoryInformation();
+        this.infoNfcAccessService = new hap.Service.AccessoryInformation();
         this.manufacturer = config.manufacturer || "new_inventor";
         this.serial = config.serial || "000000001";
         this.model = config.model || "homebridge-nfc-card";
@@ -67,7 +68,10 @@ class NfcCard {
      * It should return all services which should be added to the accessory.
      */
     getServices() {
-        this.informationService
+        this.infoLockService = new hap.Service.AccessoryInformation()
+            .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
+            .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+        this.infoNfcAccessService
             .setCharacteristic(hap.Characteristic.Manufacturer, "new_inventor")
             .setCharacteristic(hap.Characteristic.Model, "ComputerCard")
             .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)

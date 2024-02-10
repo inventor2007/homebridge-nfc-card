@@ -32,8 +32,6 @@ class NfcCard implements AccessoryPlugin {
   
   // private readonly Characteristic: Characteristic;
 
-  private readonly informationService: Service;
-
   private manufacturer: string
   private serial: string
   private model: string
@@ -42,13 +40,17 @@ class NfcCard implements AccessoryPlugin {
   private readonly LockService: Service;
   private readonly NfcAccessService: Service;
 
+  private readonly infoLockService: Service;
+  private readonly infoNfcAccessService: Service;
+
   constructor(log: Logging, config: AccessoryConfig, api: API) {
     this.log = log;
     this.name = config.name;
     this.api = api;
 
     this.name = config.name
-    this.informationService = new hap.Service.AccessoryInformation()
+    this.infoLockService = new hap.Service.AccessoryInformation()
+    this.infoNfcAccessService = new hap.Service.AccessoryInformation()
 
     this.manufacturer = config.manufacturer || "new_inventor"
     this.serial = config.serial || "000000001"
@@ -127,7 +129,10 @@ class NfcCard implements AccessoryPlugin {
    * It should return all services which should be added to the accessory.
    */
   getServices(): Service[] {
-    this.informationService
+    this.infoLockService = new hap.Service.AccessoryInformation()
+      .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
+      .setCharacteristic(hap.Characteristic.Model, "Custom Model");
+    this.infoNfcAccessService
       .setCharacteristic(hap.Characteristic.Manufacturer, "new_inventor")
       .setCharacteristic(hap.Characteristic.Model, "ComputerCard")
       .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)
