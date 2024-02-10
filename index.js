@@ -41,7 +41,7 @@ function HTTPLock (log, config) {
 
 
   this.nfcAccessService = new Service.NFCAccess(this.name)
-  this.nfcAccessService.setCharacteristic(Characteristic.NFCAccessSupportedConfiguration, "AQEQAgEQ");
+  this.nfcAccessService.setCharacteristic(Characteristic.NFCAccessSupportedConfiguration, 2);
 }
 
 HTTPLock.prototype = {
@@ -111,7 +111,7 @@ HTTPLock.prototype = {
   autoLockFunction: function () {
     this.log('Waiting %s seconds for autolock', this.autoLockDelay)
     setTimeout(() => {
-      this.lockMechanismService.setCharacteristic(Characteristic.LockTargetState, 1)
+      this.lockMechanismService.setCharacteristic(Characteristic.LockTargetState, 2)
       this.log('Autolocking...')
     }, this.autoLockDelay * 1000)
   },
@@ -133,7 +133,7 @@ HTTPLock.prototype = {
     this.nfcAccessService
         .getCharacteristic(Characteristic.ConfigurationState)
         .on(CharacteristicEventTypes.GET, callback => {
-          console.log("Queried config state ");
+          console.log("Queried config state ", callback);
           callback(undefined, 0);
         });
     this.nfcAccessService
