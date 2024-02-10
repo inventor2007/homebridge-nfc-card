@@ -100,12 +100,7 @@ class NfcCard implements AccessoryPlugin {
         callback(undefined, "");
       });
 
-    return [this.informationService, this.lockMechanismService, this.lockManagementService, this.lockMechanismService, this.nfcAccessService]
-
-    return [
-      this.informationService,
-      this.service,
-    ];
+    return [this.informationService, this.service ]
   }
 
 }

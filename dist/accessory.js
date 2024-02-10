@@ -48,11 +48,7 @@ class NfcCard {
             console.log("Control Point Write: " + value);
             callback(undefined, "");
         });
-        return [this.informationService, this.lockMechanismService, this.lockManagementService, this.lockMechanismService, this.nfcAccessService];
-        return [
-            this.informationService,
-            this.service,
-        ];
+        return [this.informationService, this.service];
     }
 }
 module.exports = (api) => {
