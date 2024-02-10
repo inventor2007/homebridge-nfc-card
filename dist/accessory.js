@@ -6,18 +6,12 @@ class NfcCard {
         this.name = config.name;
         this.api = api;
         this.name = config.name;
+        this.informationService = new hap.Service.AccessoryInformation();
+        this.manufacturer = config.manufacturer || "new_inventor";
+        this.serial = config.serial || "000000001";
+        this.model = config.model || "homebridge-nfc-card";
+        this.firmware = config.firmware || "0.0.1";
         this.service = new hap.Service.NFCAccess(this.name);
-        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche");
-        this.informationService = new hap.Service.AccessoryInformation()
-            .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
-            .setCharacteristic(hap.Characteristic.Model, "Custom Model");
-        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-            .onGet(this.handleConfigurationStateGet.bind(this));
-        this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
-            .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
-            console.log("Control Point Write: " + value);
-            callback(undefined, "");
-        });
         log.info("Switch finished initializing!");
     }
     /**
@@ -41,6 +35,20 @@ class NfcCard {
      * It should return all services which should be added to the accessory.
      */
     getServices() {
+        this.informationService
+            .setCharacteristic(hap.Characteristic.Manufacturer, "new_inventor")
+            .setCharacteristic(hap.Characteristic.Model, "ComputerCard")
+            .setCharacteristic(hap.Characteristic.SerialNumber, this.serial)
+            .setCharacteristic(hap.Characteristic.FirmwareRevision, this.firmware);
+        this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche");
+        this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
+            .onGet(this.handleConfigurationStateGet.bind(this));
+        this.service.getCharacteristic(hap.Characteristic.NFCAccessControlPoint)
+            .on("set" /* CharacteristicEventTypes.SET */, (value, callback) => {
+            console.log("Control Point Write: " + value);
+            callback(undefined, "");
+        });
+        return [this.informationService, this.lockMechanismService, this.lockManagementService, this.lockMechanismService, this.nfcAccessService];
         return [
             this.informationService,
             this.service,
