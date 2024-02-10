@@ -1,6 +1,6 @@
 {
   "name": "homebridge-nfc-card",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "An example accessory plugin for homebridge written in Typescript",
   "main": "dist/accessory.js",
   "scripts": {
@@ -24,10 +24,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/inventor2007/nfc-card.git"
+    "url": "git://github.com/inventor2007/homebridge-nfc-card.git"
   },
   "bugs": {
-    "url": "https://github.com/inventor2007/nfc-card/issues"
+    "url": "https://github.com/inventor2007/homebridge-nfc-card/issues"
   },
   "devDependencies": {
     "@types/node": "16.11.7",

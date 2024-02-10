@@ -2,11 +2,7 @@ import {
   AccessoryConfig,
   AccessoryPlugin,
   API,
-  Characteristic,
   CharacteristicEventTypes,
-  CharacteristicGetCallback,
-  CharacteristicSetCallback,
-  CharacteristicValue,
   HAP,
   Logging,
   Service
