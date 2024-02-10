@@ -42,17 +42,11 @@ class NfcCard implements AccessoryPlugin {
 
     this.service = new hap.Service.NFCAccess(this.name)
 
-    this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, 2)
+    this.service.setCharacteristic(hap.Characteristic.NFCAccessSupportedConfiguration, "okmabiche")
 
     this.informationService = new hap.Service.AccessoryInformation()
       .setCharacteristic(hap.Characteristic.Manufacturer, "Custom Manufacturer")
       .setCharacteristic(hap.Characteristic.Model, "Custom Model");
-    
-    this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
-      .on(CharacteristicEventTypes.GET, callback => {
-        console.log("Queried config state: ");
-        callback(undefined, 0);
-      });
     
     this.service.getCharacteristic(hap.Characteristic.ConfigurationState)
       .onGet(this.handleConfigurationStateGet.bind(this))
